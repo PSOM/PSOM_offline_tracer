@@ -3,7 +3,7 @@ This Fortran code advects tracers offline in PSOM model fields.
 
 ***********
 * INSTALLATION DIRECTIONS
-It is designed to work with pre-existing PSOM installations. In order to use this code, place the downloaded folder in your PSOM directory and compile using the same tools as your model run.
+This code is designed to work with pre-existing PSOM installations. In order to use this code, place the downloaded folder in your PSOM directory and compile using the same tools as your model run.
 
 ***********
 * DATA NEEDS
