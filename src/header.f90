@@ -264,15 +264,15 @@ MODULE header
   REAL(kind=rc_kind), dimension(    0:NI+1,0:NJ+1, 0:NK+1)      :: zc,wx,wy,wz,p,strain,shear,Jac,Jacinv,rho,rho_bar,rho_pri,vor,pv
   REAL(kind=rc_kind), dimension(    0:NI+1,0:NJ+1, 0:NK+1)      :: freqby,freqbz,freqN2,si,sj,sk,cx,cy,cz,rp,T_ref
   REAL(kind=rc_kind), dimension(    0:NI+1,0:NJ+1, 0:NK  )      :: wt,wzk,skfc
-  REAL(kind=rc_kind), dimension(      NI,    NJ,   0:NK  )      :: czf,Kz,wf
+  REAL(kind=rc_kind), dimension(      NI,    NJ,   0:NK  )      :: czf,Kz,wf,wf0,wf1
   REAL(kind=rc_kind), dimension(           0:NJ+1,   NK  )      :: ueast,uwest
-  REAL(kind=rc_kind), dimension(      NI,  0:NJ,     NK  )      :: hyn,sjfc,cyf,gj3,gqj3,Jjfc,vf
-  REAL(kind=rc_kind), dimension(    0:NI,    NJ  ,   NK  )      :: hxn,sifc,cxf,gi3,gqi3,Jifc,uf
+  REAL(kind=rc_kind), dimension(      NI,  0:NJ,     NK  )      :: hyn,sjfc,cyf,gj3,gqj3,Jjfc,vf,vf0,vf1
+  REAL(kind=rc_kind), dimension(    0:NI,    NJ  ,   NK  )      :: hxn,sifc,cxf,gi3,gqi3,Jifc,uf,uf0,uf1
   REAL(kind=rc_kind), dimension(      NI,    NJ,     NK  )      :: uvis,vvis,wvis,fricu,fricv,fricw,fricb,rhoadv,rhoprev
   REAL(kind=rc_kind), dimension(             NJ,     NK  )      :: ufbce,ufbcw,trinit,divreyn,divmean,dcdt,prod
   REAL(kind=rc_kind), dimension(      NI,            NK  )      :: vfbcn,vfbcs,vnorth,vsouth,ssouth
   REAL(kind=rc_kind), dimension(    0:NI+1,0:NJ+1,   2   )      :: gradhn
-  REAL(kind=rc_kind), dimension(    0:NI+1,0:NJ+1        )      :: ux,uy,vx,vy,ffc,bbc,oldh,h,h_bar,h_pri,hdt,&
+  REAL(kind=rc_kind), dimension(    0:NI+1,0:NJ+1        )      :: ux,uy,vx,vy,ffc,bbc,oldh,h,h0,h1,h_bar,h_pri,hdt,&
                                                                     &D,J2d,Ddx,Ddy,g11,g22,g12
   REAL(kind=rc_kind), dimension(      NI  ,0:NJ          )      :: bbj,ffj
   REAL(kind=rc_kind), dimension(    0:NI  ,  NJ          )      :: ffi,bbi

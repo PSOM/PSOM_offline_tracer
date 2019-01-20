@@ -25,7 +25,7 @@ do it=1,ntr
     ! computation of the horizontal diabatic fluxes
     vardif=0.;
     !call mixing_horizontal(var,vardif);
-    !call mixing_isopycnal(var,vardif,1.);!PRINT*,"VISCOUS REDI";
+    call mixing_isopycnal(var,vardif,1.);!PRINT*,"VISCOUS REDI";
     uvarx(1:NI,1:NJ,1:NK)=uvarx(1:NI,1:NJ,1:NK)-vardif(1:NI,1:NJ,1:NK)
     ! ---------------------------------------------------------------
     ! computation of the vertical diabatic fluxes

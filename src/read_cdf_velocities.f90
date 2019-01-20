@@ -23,13 +23,12 @@ subroutine read_cdf_velocities(nstp)
   integer start2d(2), count2d(2)
 
   DATA start /1, 1, 1/
-  !DATA count /NI+1, NJ+1, NK+1/
   DATA start2d /1, 1/
   DATA count2d /NI, NJ/
   
-  count(1)= NI+1
-  count(2)= NJ+1
-  count(3)= NK+1
+  count(1)= NI+2
+  count(2)= NJ+2
+  count(3)= NK+2
 
   countuf(1)= NI+1
   countuf(2)= NJ
@@ -54,7 +53,15 @@ subroutine read_cdf_velocities(nstp)
   call ncvgt( idzSliceFile, idxc, start(1), count(1), xc, rcode )
   call ncvgt( idzSliceFile, idyc, start(2), count(2), yc, rcode )
   call ncvgt( idzSliceFile, idzc, start, count, zc, rcode )
-  call ncvgt( idzSliceFile, idh, start, count, h, rcode)
+  call ncvgt( idzSliceFile, idh, start, count, h0, rcode)
+  call ncclos(idzSliceFile, rcode)
+  
+  WRITE(zslice_data,'("full_",I5.5,".cdf")') nstp+out3d_int
+  print *, zslice_data
+  idzSliceFile = ncopn(TRIM(dirout)//zslice_data, NCNOWRIT,rcode)
+
+  idh = ncvid(idzSliceFile,'h',rcode)
+  call ncvgt( idzSliceFile, idh, start, count, h1, rcode)
   call ncclos(idzSliceFile, rcode)
 
   WRITE(inname_data,'("face_",I5.5,".cdf")') nstp
@@ -65,9 +72,21 @@ subroutine read_cdf_velocities(nstp)
   idvf = ncvid(idInFile,'vf',rcode)
   idwf = ncvid(idInFile,'wf',rcode)
 
-  call ncvgt( idInFile, iduf, start, countuf, uf, rcode )
-  call ncvgt( idInFile, idvf, start, countvf, vf, rcode )
-  call ncvgt( idInFile, idwf, start, countwf, wf, rcode )
+  call ncvgt( idInFile, iduf, start, countuf, uf0, rcode )
+  call ncvgt( idInFile, idvf, start, countvf, vf0, rcode )
+  call ncvgt( idInFile, idwf, start, countwf, wf0, rcode )
+  
+  WRITE(inname_data,'("face_",I5.5,".cdf")') nstp+out3d_int
+  print*, inname_data
+  idInFile = ncopn(TRIM(dirout)//inname_data, NCNOWRIT,rcode)
+
+  iduf = ncvid(idInFile,'uf',rcode)
+  idvf = ncvid(idInFile,'vf',rcode)
+  idwf = ncvid(idInFile,'wf',rcode)
+
+  call ncvgt( idInFile, iduf, start, countuf, uf1, rcode )
+  call ncvgt( idInFile, idvf, start, countvf, vf1, rcode )
+  call ncvgt( idInFile, idwf, start, countwf, wf1, rcode )
 
   call ncclos(idInFile, rcode)
 

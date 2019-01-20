@@ -31,15 +31,26 @@ SUBROUTINE ini_setup
 
  ! HORIZONTAL GRID VARIABLES
 
- DO  j=0,NJ+1 
-   DO  i=0,NI+1 
-     xdu(i,j)= dx/LEN 
-     ydu(i,j)= 0.d0 
-     xdv(i,j)= 0.d0 
-     ydv(i,j)= dy/LEN !- used for constant dy
-     ! ydv(i,j)= dyM(j)/LEN 
-   ENDDO
- ENDDO
+ do i=0,NI
+ 	do j=0,NJ
+ 		xdu(i,j) = (xc(i+1)-xc(i))/LEN*1.d3
+ 		ydv(i,j) = (yc(j+1)-yc(j))/LEN*1.d3
+		xdv(i,j) = 0
+		ydu(i,j) = 0
+ 		xdu(NI+1,j) = (xc(NI+1)-xc(NI))/LEN*1.d3
+ 		ydv(NI+1,j) = (yc(j+1)-yc(j))/LEN*1.d3
+		xdv(NI+1,j) = 0
+		ydu(NI+1,j) = 0
+ 	end do
+ 	xdu(i,NJ+1) = xdu(i,NJ)
+ 	ydv(i,NJ+1) = ydv(i,NJ)
+	xdv(i,NJ+1) = 0
+	ydu(i,NJ+1) = 0
+ end do
+xdu(NI+1,NJ+1) = (xc(NI+1)-xc(NI))/LEN*1.d3
+ydv(NI+1,NJ+1) = ydv(NI+1,NJ)
+xdv(NI+1,NJ+1) = 0
+ydu(NI+1,NJ+1) = 0
 
  DO j=0,NJ+1 
    DO i=0,NI+1 
