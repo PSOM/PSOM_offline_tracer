@@ -23,7 +23,7 @@ CALL tracerinit(0)    !initializes tracer
 do step = pickup_step,(pickup_step+nsteps)
     ! 2a. load the velocity fields and interpolate in time
 	dstep = mod(step,out3d_int)/out3d_int
-    if (dstep.eq.0) then
+    if (mod(step,out3d_int).eq.0) then
         nbegin = step
 		CALL read_cdf_velocities(nbegin)
     endif
