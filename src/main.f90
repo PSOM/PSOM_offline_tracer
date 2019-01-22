@@ -19,18 +19,22 @@ CALL staticsigma(nbegin)     ! calculates metric terms in vertical for the fixed
                      ! It is important to call sigma before staticsigma and ini_st          
                      ! sigma needs to be called in momentum after each time advancement
 CALL tracerinit(0)    !initializes tracer
+dstep = 1.00d0/real(out3d_int)
 ! 2. advection routine
 do step = pickup_step,(pickup_step+nsteps)
     ! 2a. load the velocity fields and interpolate in time
-	dstep = mod(step,out3d_int)/out3d_int
     if (mod(step,out3d_int).eq.0) then
         nbegin = step
 		CALL read_cdf_velocities(nbegin)
+		uf1 = (uf1-uf)*dstep ! linear rate of change
+		vf1 = (vf1-vf)*dstep ! linear rate of change
+		wf1 = (wf1-wf)*dstep ! linear rate of change
+		h1 = (h1-h)*dstep ! linear rate of change
     endif
-	uf = uf0*(1-dstep)+uf1*dstep
-	vf = vf0*(1-dstep)+vf1*dstep
-	wf = wf0*(1-dstep)+wf1*dstep
-	h = h0*(1-dstep)+h1*dstep
+	uf = uf+uf1
+	vf = vf+vf1
+	wf = wf+wf1
+	h = h+h1
 	CALL sigma           ! calculates metric terms in vertical for the moving part of the grid
 	
     ! 2b. advect the tracer using the velocity fields and calculate reaction term

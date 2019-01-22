@@ -53,7 +53,7 @@ subroutine read_cdf_velocities(nstp)
   call ncvgt( idzSliceFile, idxc, start(1), count(1), xc, rcode )
   call ncvgt( idzSliceFile, idyc, start(2), count(2), yc, rcode )
   call ncvgt( idzSliceFile, idzc, start, count, zc, rcode )
-  call ncvgt( idzSliceFile, idh, start, count, h0, rcode)
+  call ncvgt( idzSliceFile, idh, start, count, h, rcode)
   call ncclos(idzSliceFile, rcode)
   
   WRITE(zslice_data,'("full_",I5.5,".cdf")') nstp+out3d_int
@@ -72,9 +72,9 @@ subroutine read_cdf_velocities(nstp)
   idvf = ncvid(idInFile,'vf',rcode)
   idwf = ncvid(idInFile,'wf',rcode)
 
-  call ncvgt( idInFile, iduf, start, countuf, uf0, rcode )
-  call ncvgt( idInFile, idvf, start, countvf, vf0, rcode )
-  call ncvgt( idInFile, idwf, start, countwf, wf0, rcode )
+  call ncvgt( idInFile, iduf, start, countuf, uf, rcode )
+  call ncvgt( idInFile, idvf, start, countvf, vf, rcode )
+  call ncvgt( idInFile, idwf, start, countwf, wf, rcode )
   
   WRITE(inname_data,'("face_",I5.5,".cdf")') nstp+out3d_int
   print*, inname_data
