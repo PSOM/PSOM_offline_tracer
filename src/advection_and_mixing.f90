@@ -20,6 +20,7 @@ do it=1,ntr
     var=Tr(it,:,:,:,m)
     ! ---------------------------------------------------------------
     ! computation of the advective fluxes, using QUICK scheme
+    is_sink = 0 ! no sinking
     CALL advect(var,uvarx,is_sink)
     ! ---------------------------------------------------------------
     ! computation of the horizontal diabatic fluxes
