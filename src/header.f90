@@ -69,6 +69,7 @@ MODULE header
 
   LOGICAL, PARAMETER :: rect = .TRUE., periodicew = .TRUE.
   REAL(kind=rc_kind) :: dx,dy                                 !@ dx, dy: dimensional (in m), in namelist
+  REAL(kind=rc_kind) :: dyM(0:NJ+1)                         ! grid spacing in y for irregular grid
 
 
   LOGICAL :: lv_flat_bottom                                !@ choice for topography, in namelist

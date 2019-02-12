@@ -21,19 +21,19 @@ do it=1,ntr
     ! ---------------------------------------------------------------
     ! computation of the advective fluxes, using QUICK scheme
     is_sink = 0 ! no sinking
-    CALL advect(var,uvarx,is_sink)
+    CALL advect(var,uvarx)
     ! ---------------------------------------------------------------
     ! computation of the horizontal diabatic fluxes
-    vardif=0.;
+    !vardif=0.;
     !call mixing_horizontal(var,vardif);
-    call mixing_isopycnal(var,vardif,1.);!PRINT*,"VISCOUS REDI";
-    uvarx(1:NI,1:NJ,1:NK)=uvarx(1:NI,1:NJ,1:NK)-vardif(1:NI,1:NJ,1:NK)
+    !call mixing_isopycnal(var,vardif,1.);!PRINT*,"VISCOUS REDI";
+    !uvarx(1:NI,1:NJ,1:NK)=uvarx(1:NI,1:NJ,1:NK)-vardif(1:NI,1:NJ,1:NK)
     ! ---------------------------------------------------------------
     ! computation of the vertical diabatic fluxes
-    vardif=0.;
+    !vardif=0.;
     !call mixing_vertical(var,vardif,m,step,iv_compute_kz);
-    uvarx(1:NI,1:NJ,1:NK)=uvarx(1:NI,1:NJ,1:NK)-vardif(1:NI,1:NJ,1:NK)
-    iv_compute_kz=0;
+    !uvarx(1:NI,1:NJ,1:NK)=uvarx(1:NI,1:NJ,1:NK)-vardif(1:NI,1:NJ,1:NK)
+    !iv_compute_kz=0;
     ! ---------------------------------------------------------------
     ! final summation
     Tr(it,1:NI,1:NJ,1:NK,n) = Tr(it,1:NI,1:NJ,1:NK,0)-dtimel*Jacinv(1:NI,1:NJ,1:NK)*uvarx(1:NI,1:NJ,1:NK)

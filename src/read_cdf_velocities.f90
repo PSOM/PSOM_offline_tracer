@@ -89,6 +89,10 @@ subroutine read_cdf_velocities(nstp)
   call ncvgt( idInFile, idwf, start, countwf, wf1, rcode )
 
   call ncclos(idInFile, rcode)
+  
+  uf = uf/UL
+  vf = vf/UL
+  wf = wf*EPS/WL
 
   return
 end
