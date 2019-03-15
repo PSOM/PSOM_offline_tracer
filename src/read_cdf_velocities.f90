@@ -55,14 +55,7 @@ subroutine read_cdf_velocities(nstp)
   call ncvgt( idzSliceFile, idzc, start, count, zc, rcode )
   call ncvgt( idzSliceFile, idh, start, count, h, rcode)
   call ncclos(idzSliceFile, rcode)
-  
-  WRITE(zslice_data,'("full_",I5.5,".cdf")') nstp+out3d_int
-  print *, zslice_data
-  idzSliceFile = ncopn(TRIM(dirout)//zslice_data, NCNOWRIT,rcode)
 
-  idh = ncvid(idzSliceFile,'h',rcode)
-  call ncvgt( idzSliceFile, idh, start, count, h1, rcode)
-  call ncclos(idzSliceFile, rcode)
 
   WRITE(inname_data,'("face_",I5.5,".cdf")') nstp
   print*, inname_data
@@ -75,24 +68,8 @@ subroutine read_cdf_velocities(nstp)
   call ncvgt( idInFile, iduf, start, countuf, uf, rcode )
   call ncvgt( idInFile, idvf, start, countvf, vf, rcode )
   call ncvgt( idInFile, idwf, start, countwf, wf, rcode )
-  
-  WRITE(inname_data,'("face_",I5.5,".cdf")') nstp+out3d_int
-  print*, inname_data
-  idInFile = ncopn(TRIM(dirout)//inname_data, NCNOWRIT,rcode)
-
-  iduf = ncvid(idInFile,'uf',rcode)
-  idvf = ncvid(idInFile,'vf',rcode)
-  idwf = ncvid(idInFile,'wf',rcode)
-
-  call ncvgt( idInFile, iduf, start, countuf, uf1, rcode )
-  call ncvgt( idInFile, idvf, start, countvf, vf1, rcode )
-  call ncvgt( idInFile, idwf, start, countwf, wf1, rcode )
 
   call ncclos(idInFile, rcode)
-  
-  uf = uf/UL
-  vf = vf/UL
-  wf = wf*EPS/WL
 
   return
 end

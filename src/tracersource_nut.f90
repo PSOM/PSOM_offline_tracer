@@ -1,33 +1,34 @@
-subroutine tracersource(m,n,dtimel) 
+subroutine tracersource(n,dtimel) 
   !     -----------------------                                           
   USE header
 
   !     tracer sources                                                    
   !                                                                       
   integer  i,j,k,n,m 
-  REAL(kind=rc_kind) :: dtimel,fac,tau,tauinv,vol,r
+  REAL(kind=rc_kind) :: dtimel,fac,tau,tauinv,vol
+!  REAL(kind=rc_kind) :: trinit,facmortal,phyconvert 
   !                                                                       
   !     consump is the uptake (or if negative, then addition) of tracer   
 
   !tau is the time scale for consump = 1day = 86400 seconds
   tauinv = 1.d0/(1.d0*86400.d0)    ! tauinv is in (per second)
   fac= dtimel/(1.d0*86400.d0*UL/LEN) ! dtime is non-dim time, TL=LEN/UL
-  r = 1.d-2
   ! fac is non-dim
 
   it=1
   do k=0,NK+1 
      do j=0,NJ+1 
         do i=0,NI+1 
-           vol= Jac(i,j,k)*LEN*LEN*DL   !vol in m^3
+           !vol= Jac(i,j,k)*LEN*LEN*DL   !vol in m^3
            !consump(i,j,k,it)= vol*tauinv*                           &
-           !     (Tr(it,i,j,k,n)- trinit(j,k))  !Tr in milimoles per m^3
+            !    (Tr(it,i,j,k,n)- trinit(j,k))  !Tr in milimoles per m^3
            ! consump in milimoles/ sec
-           Tr(it,i,j,k,n)= Tr(it,i,j,k,m) - fac*(r*Tr(it,i,j,k,m))
+           Tr(it,i,j,k,n)= Tr(it,i,j,k,n)
         end do
      end do
   end do
-                                                                     
+  !
+  !                                                                       
   do m=0,1 
      do k=0,NK+1 
         do j=0,NJ+1 

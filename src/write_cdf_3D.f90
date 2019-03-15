@@ -5,7 +5,7 @@ subroutine write_cdf_3D(stepl,n)
 ! It writes both center and face values to be written in .cdf files.
 !----------------------------------------------------------
 
-  USE header, only : NI,NJ,NK,xc,yc,zc,consump,Tr,nconsume,dirout,rc_kind,ntr
+  USE header, only : NI,NJ,NK,xc,yc,zc,consump,Tr,nconsume,dirout,rc_kind,ntr,UL,WL,EPS
 #include "netcdf.inc"
 
   integer i,j,k,n,stepl,nstp,it
@@ -75,7 +75,7 @@ subroutine write_cdf_3D(stepl,n)
   ! --- START WRITING
 
   ! Output file names
-  WRITE(outname_data,'("adv_full_",I5.5,".cdf")') stepl     ! Cell centers
+  WRITE(outname_data,'("adv_25steps_full_",I5.5,".cdf")') stepl     ! Cell centers
   WRITE(outname_face,'("adv_face_",I5.5,".cdf")') stepl     ! Cell faces
 
   !---------------------------------------
@@ -102,14 +102,14 @@ subroutine write_cdf_3D(stepl,n)
   idvx = ncvdef(idDatFile,'xc',NCDOUBLE,1,dims(1),rcode)
   idvy = ncvdef(idDatFile,'yc',NCDOUBLE,1,dims(2),rcode)
   idvz = ncvdef(idDatFile,'zc',NCDOUBLE,3,dims,rcode)
-  idvc = ncvdef(idDatFile,'consump',NCDOUBLE,4,dimsconsump,rcode)
+  !idvc = ncvdef(idDatFile,'consump',NCDOUBLE,4,dimsconsump,rcode)
   idvtr = ncvdef(idDatFile,'tr',NCDOUBLE,4,dims4,rcode)
 
   CALL ncendf(idDatFile,rcode)
   CALL ncvpt(idDatFile,idvx, start(1), count(1), xc, rcode)
   CALL ncvpt(idDatFile,idvy, start(2), count(2), yc, rcode)
   CALL ncvpt(idDatFile,idvz, start, count, z, rcode)
-  CALL ncvpt(idDatFile,idvc,start4,count4consump,consump,rcode)
+  !CALL ncvpt(idDatFile,idvc,start4,count4consump,consump,rcode)
   CALL ncvpt(idDatFile,idvtr, start4, count4, Trwrite, rcode)
 
   CALL ncclos(idDatFile,rcode)
